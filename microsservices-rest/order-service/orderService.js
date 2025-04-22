@@ -3,12 +3,18 @@ const app = express();
 
 app.use(express.json());
 
+let orders = []; //array para armazenar as ordens
+
 app.post('/pedidos', (req, res) => {
-    const pedidos = req.body;
 
-    console.log({ message: "Pedido recebido com sucesso", pedidos });
+    const {id, product, quantity} = req.body;
+    if (!id || !product || !quantity) {
+        return res.status(400).send ({ message: 'dados do pedido invalidos'});
+    }
 
-        res.send({ message: "Pedido recebido", pedidos });
+    const newOrder = (id, product, quantity);  
+    orders.push(newOrder);
+    res.status(201).send({ message: 'Pedido cadastrado com sucesso', order: newOrder})
 });
 
 
